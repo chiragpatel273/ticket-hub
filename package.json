@@ -1,0 +1,25 @@
+{
+  "name": "ticket-hub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "dev": "concurrently -n client,server -c green,blue \"npm run dev:client\" \"npm run dev:server\"",
+    "dev:client": "npm run dev --workspace client",
+    "dev:server": "npm run dev --workspace server"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.7.4"
+  }
+}
