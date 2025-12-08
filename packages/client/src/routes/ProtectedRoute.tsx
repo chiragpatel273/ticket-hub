@@ -1,7 +1,13 @@
+import type { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
-export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
+interface ProtectedRouteProps {
+  children: ReactNode;
+  roles?: string[];
+}
+
+export default function ProtectedRoute({ children, roles }: ProtectedRouteProps) {
   const auth = useAuth();
 
   // Handle null auth context
@@ -12,8 +18,10 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
   // While we don't know whether user is logged in
   if (loading) return <p>Loading...</p>;
 
-  // If not logged in → redirect to login
-  if (!user) return <Navigate to="/login" replace />;
+  // Role check
+  if (roles && !roles.includes(user.role)) {
+    return <Navigate to="/" replace />;
+  }
 
   return children;
 }

@@ -10,7 +10,7 @@ function generateToken(user) {
 
 const register = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
     const exists = await User.findOne({ email });
     if (exists) {
@@ -22,6 +22,7 @@ const register = async (req, res) => {
     const user = await User.create({
       name,
       email,
+      role,
       password: hashed,
     });
 
